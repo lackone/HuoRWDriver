@@ -99,6 +99,11 @@ CHAR* GetRandServiceName()
 
 EXTERN_C BOOLEAN WINAPI HRW_DriverLoad()
 {
+	if (HRW_test())
+	{
+		return TRUE;
+	}
+
 	srand(time(NULL));
 
 	LoadDriver load;
@@ -127,6 +132,11 @@ EXTERN_C VOID WINAPI HRW_UnDriverLoad()
 	load.unload(serviceName);
 }
 
+EXTERN_C BOOLEAN WINAPI HRW_test()
+{
+	ULONG64 test = 0;
+	return DriverComm(CMD_TEST, &test, sizeof(test));
+}
 
 EXTERN_C ULONG64 WINAPI HRW_GetModule(DWORD pid, CHAR* moduleName)
 {
@@ -136,4 +146,15 @@ EXTERN_C ULONG64 WINAPI HRW_GetModule(DWORD pid, CHAR* moduleName)
 	DriverComm(CMD_GET_MODULE, &mi, sizeof(ModuleInfo));
 
 	return mi.moduleBase;
+}
+
+EXTERN_C BOOLEAN WINAPI HRW_ReadMemory(DWORD pid, ULONG64 baseAddr, PVOID buf, ULONG size)
+{
+	ReadWriteInfo info = { 0 };
+	info.pid = pid;
+	info.baseAddr = baseAddr;
+	info.buf = (ULONG64)buf;
+	info.size = size;
+
+	return DriverComm(CMD_READ_MEMORY, &info, sizeof(ReadWriteInfo));
 }

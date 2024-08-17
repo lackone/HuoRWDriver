@@ -2,4 +2,6 @@
     EXPORTS
 		HRW_DriverLoad
 		HRW_UnDriverLoad
+		HRW_test
 		HRW_GetModule
+		HRW_ReadMemory
