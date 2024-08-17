@@ -40,6 +40,9 @@
     <ClCompile Include="Comm\CommWin10.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RWMemory.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Tools.h">
@@ -64,6 +67,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Comm\CommWin10.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RWMemory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

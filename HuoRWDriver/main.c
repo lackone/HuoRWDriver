@@ -3,6 +3,7 @@
 #include "Module.h"
 #include "Comm/Comm.h"
 #include "Comm/CommStruct.h"
+#include "RWMemory.h"
 
 VOID DriverUnload(PDRIVER_OBJECT DriverObject)
 {
@@ -36,6 +37,16 @@ ULONG NTAPI DispatchComm(PCommPackage package)
 		}
 
 		status = STATUS_SUCCESS;
+	}
+	break;
+	case CMD_READ_MEMORY:
+	{
+		PReadWriteInfo info = (PReadWriteInfo)data;
+
+		if (info)
+		{
+			status = ReadMemory2(info->pid, info->baseAddr, info->buf, info->size);
+		}
 	}
 	break;
 	default:

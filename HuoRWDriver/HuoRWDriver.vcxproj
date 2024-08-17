@@ -138,11 +138,23 @@
     <ClCompile>
       <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
+    <PostBuildEvent>
+      <Command>vmp_debug.bat</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
+    <PostBuildEvent>
+      <Command>vmp.bat</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <FilesToPackage Include="$(TargetPath)" />
@@ -153,6 +165,7 @@
     <ClCompile Include="Comm\CommWin7.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="Module.c" />
+    <ClCompile Include="RWMemory.c" />
     <ClCompile Include="SearchCode.c" />
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +175,7 @@
     <ClInclude Include="Comm\CommWin7.h" />
     <ClInclude Include="Export.h" />
     <ClInclude Include="Module.h" />
+    <ClInclude Include="RWMemory.h" />
     <ClInclude Include="SearchCode.h" />
     <ClInclude Include="Tools.h" />
   </ItemGroup>
