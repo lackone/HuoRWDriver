@@ -24,6 +24,15 @@
     <ClInclude Include="CommR3.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="LoadDriver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="dll.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ExportApi.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -35,5 +44,23 @@
     <ClCompile Include="CommR3.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="LoadDriver.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ExportApi.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Build.bat">
+      <Filter>源文件</Filter>
+    </None>
+    <None Include="Build.exe" />
+    <None Include="Build_debug.bat">
+      <Filter>源文件</Filter>
+    </None>
+    <None Include="export.def">
+      <Filter>源文件</Filter>
+    </None>
   </ItemGroup>
 </Project>

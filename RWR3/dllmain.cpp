@@ -4,11 +4,25 @@
 #include <stdlib.h>
 #include <windows.h>
 #include "CommR3.h"
+#include "ExportApi.h"
 
 int main()
 {
-    ULONG xxx = 0x12345678;
-    DriverComm(1, &xxx, 4);
+    BOOLEAN ret = HRW_DriverLoad();
+    if (ret)
+    {
+        printf("驱动加载成功\r\n");
+
+        ULONG64 size = HRW_GetModule(2072, (CHAR*)"explorer.exe");
+        printf("size = %x \r\n", size);
+        
+        system("pause");
+        HRW_UnDriverLoad();
+    }
+    else
+    {
+        printf("驱动加载失败\r\n");
+    }
 
     system("pause");
     return 0;

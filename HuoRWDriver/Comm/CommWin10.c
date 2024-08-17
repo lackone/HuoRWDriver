@@ -28,6 +28,8 @@ NTSTATUS NTAPI NewxKdEnumerateDebuggingDevicesFunc(PVOID info, PVOID p2, PVOID p
 			}
 		}
 	}
+
+	return STATUS_SUCCESS;
 }
 
 NTSTATUS RegCommCallbackWin10(CommCallbackProc callback)

@@ -1,0 +1,5 @@
+ LIBRARY 
+    EXPORTS
+		HRW_DriverLoad
+		HRW_UnDriverLoad
+		HRW_GetModule
