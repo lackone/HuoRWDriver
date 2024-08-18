@@ -5,3 +5,4 @@
 		HRW_test
 		HRW_GetModule
 		HRW_ReadMemory
+		HRW_WriteMemory

@@ -142,3 +142,51 @@ ULONG_PTR GetModuleR3(HANDLE pid, PCHAR moduleName, ULONG_PTR* sizeOfImage)
 
 	return moduleBase;
 }
+
+NTSTATUS QueryMemory(HANDLE pid, ULONG64 addr, PMyMEMORY_BASIC_INFORMATION info)
+{
+	if (info == NULL)
+	{
+		return STATUS_UNSUCCESSFUL;
+	}
+
+	PEPROCESS process = NULL;
+	NTSTATUS status = PsLookupProcessByProcessId(pid, &process);
+	if (!NT_SUCCESS(status))
+	{
+		return status;
+	}
+
+	KAPC_STATE apc = { 0 };
+
+	PMEMORY_BASIC_INFORMATION pInfo = (PMEMORY_BASIC_INFORMATION)ExAllocatePool(NonPagedPool, sizeof(MEMORY_BASIC_INFORMATION));
+	if (pInfo == NULL)
+	{
+		return STATUS_MEMORY_NOT_ALLOCATED;
+	}
+	memset(pInfo, 0, sizeof(MEMORY_BASIC_INFORMATION));
+
+	KeStackAttachProcess(process, &apc);
+
+	SIZE_T retSize = 0;
+	status = ZwQueryVirtualMemory(NtCurrentProcess(), addr, MemoryBasicInformation, pInfo, sizeof(MEMORY_BASIC_INFORMATION), &retSize);
+
+	KeUnstackDetachProcess(&apc);
+
+	if (NT_SUCCESS(status))
+	{
+		info->AllocationBase = pInfo->AllocationBase;
+		info->AllocationProtect = pInfo->AllocationProtect;
+		info->BaseAddress = pInfo->BaseAddress;
+		info->Protect = pInfo->Protect;
+		info->RegionSize = pInfo->RegionSize;
+		info->State = pInfo->State;
+		info->Type = pInfo->Type;
+	}
+
+	ExFreePool(pInfo);
+
+	ObDereferenceObject(process);
+
+	return status;
+}

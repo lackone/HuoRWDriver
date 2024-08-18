@@ -158,3 +158,27 @@ EXTERN_C BOOLEAN WINAPI HRW_ReadMemory(DWORD pid, ULONG64 baseAddr, PVOID buf, U
 
 	return DriverComm(CMD_READ_MEMORY, &info, sizeof(ReadWriteInfo));
 }
+
+EXTERN_C BOOLEAN WINAPI HRW_WriteMemory(DWORD pid, ULONG64 baseAddr, PVOID buf, ULONG size)
+{
+	ReadWriteInfo info = { 0 };
+	info.pid = pid;
+	info.baseAddr = baseAddr;
+	info.buf = (ULONG64)buf;
+	info.size = size;
+
+	return DriverComm(CMD_WRITE_MEMORY, &info, sizeof(ReadWriteInfo));
+}
+
+EXTERN_C BOOLEAN WINAPI HRW_QueryMemory(DWORD pid, ULONG64 baseAddr, PMMEMORY_BASIC_INFORMATION basicInfo)
+{
+	QueryMemoryInfo info = { 0 };
+	info.pid = pid;
+	info.baseAddr = baseAddr;
+
+	BOOLEAN ret = DriverComm(CMD_QUERY_MEMORY, &info, sizeof(QueryMemoryInfo));
+
+	memcpy(basicInfo, &info.basicInfo, sizeof(MMEMORY_BASIC_INFORMATION));
+
+	return ret;
+}

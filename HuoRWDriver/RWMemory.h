@@ -12,3 +12,6 @@ NTSTATUS ReadMemory3(HANDLE pid, PVOID targetAddr, PVOID buf, SIZE_T size);
 
 // ÇÐCR3
 NTSTATUS ReadMemory4(HANDLE pid, PVOID targetAddr, PVOID buf, SIZE_T size);
+
+// Ð´ÄÚ´æ
+NTSTATUS WriteMemory(HANDLE pid, PVOID targetAddr, PVOID buf, SIZE_T size);

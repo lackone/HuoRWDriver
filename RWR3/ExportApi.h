@@ -1,6 +1,16 @@
 #pragma once
 #include <windows.h>
 
+typedef struct _MMEMORY_BASIC_INFORMATION {
+	ULONG64 BaseAddress;
+	ULONG64 AllocationBase;
+	ULONG64 AllocationProtect;
+	ULONG64 RegionSize;
+	ULONG64 State;
+	ULONG64 Protect;
+	ULONG64 Type;
+} MMEMORY_BASIC_INFORMATION, * PMMEMORY_BASIC_INFORMATION;
+
 EXTERN_C BOOLEAN WINAPI HRW_DriverLoad();
 
 EXTERN_C VOID WINAPI HRW_UnDriverLoad();
@@ -10,3 +20,7 @@ EXTERN_C BOOLEAN WINAPI HRW_test();
 EXTERN_C ULONG64 WINAPI HRW_GetModule(DWORD pid, CHAR* moduleName);
 
 EXTERN_C BOOLEAN WINAPI HRW_ReadMemory(DWORD pid, ULONG64 baseAddr, PVOID buf, ULONG size);
+
+EXTERN_C BOOLEAN WINAPI HRW_WriteMemory(DWORD pid, ULONG64 baseAddr, PVOID buf, ULONG size);
+
+EXTERN_C BOOLEAN WINAPI HRW_QueryMemory(DWORD pid, ULONG64 baseAddr, PMMEMORY_BASIC_INFORMATION basicInfo);

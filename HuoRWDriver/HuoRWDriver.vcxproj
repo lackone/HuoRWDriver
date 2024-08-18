@@ -167,6 +167,7 @@
     <ClCompile Include="Module.c" />
     <ClCompile Include="RWMemory.c" />
     <ClCompile Include="SearchCode.c" />
+    <ClCompile Include="Tools.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Comm\Comm.h" />

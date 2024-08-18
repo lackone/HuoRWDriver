@@ -43,6 +43,9 @@
     <ClCompile Include="RWMemory.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Tools.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Tools.h">

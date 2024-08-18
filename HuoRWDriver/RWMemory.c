@@ -1,6 +1,7 @@
 #include "RWMemory.h"
 #include "Export.h"
 #include <intrin.h>
+#include "Tools.h"
 
 PVOID MdlMapMemory(PMDL* mdl, PVOID targetAddr, SIZE_T size, MODE preMode)
 {
@@ -287,6 +288,84 @@ NTSTATUS ReadMemory4(HANDLE pid, PVOID targetAddr, PVOID buf, SIZE_T size)
 	}
 
 	ExFreePool(mem);
+
+	ObDereferenceObject(process);
+
+	return status;
+}
+
+
+NTSTATUS WriteMemory(HANDLE pid, PVOID targetAddr, PVOID buf, SIZE_T size)
+{
+	if (((ULONG64)targetAddr >= MmHighestUserAddress) ||
+		((ULONG64)targetAddr + size >= MmHighestUserAddress) ||
+		((ULONG64)targetAddr + size < (ULONG64)targetAddr))
+	{
+		return STATUS_ACCESS_VIOLATION;
+	}
+
+	if (buf == NULL)
+	{
+		return STATUS_INVALID_PARAMETER_3;
+	}
+
+	PEPROCESS process = NULL;
+	NTSTATUS status = PsLookupProcessByProcessId(pid, &process);
+	if (!NT_SUCCESS(status))
+	{
+		return status;
+	}
+
+	if (PsGetProcessExitStatus(process) != STATUS_PENDING)
+	{
+		ObDereferenceObject(process);
+		return STATUS_INVALID_PARAMETER_1;
+	}
+
+	//第一次尝试写入
+	SIZE_T retSize = 0;
+	status = MmCopyVirtualMemory(IoGetCurrentProcess(), buf, process, targetAddr, size, UserMode, retSize);
+
+	//如果成功
+	if (NT_SUCCESS(status))
+	{
+		ObDereferenceObject(process);
+		return status;
+	}
+
+	KAPC_STATE apc = { 0 };
+	PEPROCESS srcProcess = IoGetCurrentProcess();
+
+	KeStackAttachProcess(process, &apc);
+
+	PVOID addr = targetAddr;
+	SIZE_T tmpSize = size;
+	ULONG oldProtect = 0;
+
+	//修改页属性
+	status = MyProtectVirtualMemory(NtCurrentProcess(), &addr, &tmpSize, PAGE_EXECUTE_READWRITE, &oldProtect);
+
+	if (NT_SUCCESS(status))
+	{
+		retSize = 0;
+		//再次写入
+		status = MmCopyVirtualMemory(srcProcess, buf, process, targetAddr, size, UserMode, retSize);
+
+		MyProtectVirtualMemory(NtCurrentProcess(), &addr, &tmpSize, oldProtect, &oldProtect);
+	}
+
+	KeUnstackDetachProcess(&apc);
+
+	if (!NT_SUCCESS(status))
+	{
+		ULONG64 cr0 = wpOff();
+
+		retSize = 0;
+		//再次写入
+		status = MmCopyVirtualMemory(srcProcess, buf, process, targetAddr, size, UserMode, retSize);
+
+		wpOn(cr0);
+	}
 
 	ObDereferenceObject(process);
 
