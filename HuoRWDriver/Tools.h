@@ -21,3 +21,5 @@ NTSTATUS NTAPI MyProtectVirtualMemory(
 ULONG64 wpOff();
 
 VOID wpOn(ULONG64 cr0);
+
+VOID KernelSleep(ULONG64 ms, BOOLEAN alert);

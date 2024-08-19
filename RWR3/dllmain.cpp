@@ -13,6 +13,7 @@ int main()
     {
         printf("驱动加载成功\r\n");
 
+        /*
         ULONG64 module = HRW_GetModule(2072, (CHAR*)"explorer.exe");
 
         MMEMORY_BASIC_INFORMATION info = { 0 };
@@ -26,6 +27,30 @@ int main()
         printf("RegionSize %llx \r\n", info.RegionSize);
         printf("State %llx \r\n", info.State);
         printf("Type %llx \r\n", info.Type);
+
+        HRW_ProcessProtect(1988);
+        
+        HMODULE hm = LoadLibraryA("user32.dll");
+        ULONG_PTR msg = (ULONG_PTR)GetProcAddress(hm, "MessageBoxA");
+
+        char code[] = {
+            0x31, 0xC9,
+            0x31, 0xD2,
+            0x4D, 0x31, 0xC0,
+            0x4D, 0x31, 0xC9,
+            0x48, 0xB8, 0x99, 0x78, 0x56, 0x34, 0x12, 0x00, 0x00, 0x00,
+            0x48, 0x81, 0xEC, 0xA8, 0x00, 0x00, 0x00,
+            0xFF, 0xD0,
+            0x48, 0x81, 0xC4, 0xA8, 0x00, 0x00, 0x00,
+            0xC3
+        };
+
+		*(PULONG64)&code[12] = msg;
+
+		HRW_RemoteCall(944, code, sizeof(code));
+        */
+
+        HRW_ProcessFake(944, 416);
         
         system("pause");
         HRW_UnDriverLoad();

@@ -165,6 +165,9 @@
     <ClCompile Include="Comm\CommWin7.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="Module.c" />
+    <ClCompile Include="ProcessFake.c" />
+    <ClCompile Include="ProcessProtect.c" />
+    <ClCompile Include="RemoteCall.c" />
     <ClCompile Include="RWMemory.c" />
     <ClCompile Include="SearchCode.c" />
     <ClCompile Include="Tools.c" />
@@ -176,6 +179,9 @@
     <ClInclude Include="Comm\CommWin7.h" />
     <ClInclude Include="Export.h" />
     <ClInclude Include="Module.h" />
+    <ClInclude Include="ProcessFake.h" />
+    <ClInclude Include="ProcessProtect.h" />
+    <ClInclude Include="RemoteCall.h" />
     <ClInclude Include="RWMemory.h" />
     <ClInclude Include="SearchCode.h" />
     <ClInclude Include="Tools.h" />

@@ -6,3 +6,6 @@
 		HRW_GetModule
 		HRW_ReadMemory
 		HRW_WriteMemory
+		HRW_ProcessProtect
+		HRW_RemoteCall
+		HRW_ProcessFake

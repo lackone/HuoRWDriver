@@ -46,6 +46,15 @@
     <ClCompile Include="Tools.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ProcessProtect.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RemoteCall.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ProcessFake.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Tools.h">
@@ -73,6 +82,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RWMemory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ProcessProtect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RemoteCall.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ProcessFake.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

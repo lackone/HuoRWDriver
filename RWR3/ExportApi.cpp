@@ -182,3 +182,31 @@ EXTERN_C BOOLEAN WINAPI HRW_QueryMemory(DWORD pid, ULONG64 baseAddr, PMMEMORY_BA
 
 	return ret;
 }
+
+EXTERN_C BOOLEAN WINAPI HRW_ProcessProtect(DWORD pid)
+{
+	ProcessProtectInfo info = { 0 };
+	info.pid = pid;
+
+	return DriverComm(CMD_PROCESS_PROTECT, &info, sizeof(ProcessProtectInfo));
+}
+
+EXTERN_C BOOLEAN WINAPI HRW_RemoteCall(DWORD pid, PVOID shellCode, DWORD shellCodeSize)
+{
+	RemoteCallInfo info = { 0 };
+
+	info.pid = pid;
+	info.shellCode = (ULONG64)shellCode;
+	info.shellCodeSize = shellCodeSize;
+
+	return DriverComm(CMD_REMOTE_CALL, &info, sizeof(RemoteCallInfo));
+}
+
+EXTERN_C BOOLEAN WINAPI HRW_ProcessFake(DWORD fakePid, DWORD srcPid)
+{
+	ProcessFakeInfo info = { 0 };
+	info.fakePid = fakePid;
+	info.srcPid = srcPid;
+
+	return DriverComm(CMD_PROCESS_FAKE, &info, sizeof(ProcessFakeInfo));
+}

@@ -62,3 +62,10 @@ VOID wpOn(ULONG64 cr0)
 	__writecr0(cr0);
 	_enable();
 }
+
+VOID KernelSleep(ULONG64 ms, BOOLEAN alert)
+{
+	LARGE_INTEGER time = { 0 };
+	time.QuadPart = ms * -10000;
+	KeDelayExecutionThread(KernelMode, alert, &time);
+}
