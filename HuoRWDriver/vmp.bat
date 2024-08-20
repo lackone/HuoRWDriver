@@ -6,7 +6,7 @@ set "SignFullPath=%preProjectpath%/x64/Release/HuoRWDriver.sys"
 set "VMPath=%preProjectpath%/x64/Release/YJ.sys.vmp"
 
 set "d=%date:~0,10%"
-set "path=%path%;D:/VMProtect Ultimate/;I:/Program Files (x86)/DSignTool/"
+set "path=%path%;I:/Program Files (x86)/VMProtect Ultimate/;I:/Program Files (x86)/DSignTool/"
 
 @rem VMProtect_Con.exe %VMPath%
 

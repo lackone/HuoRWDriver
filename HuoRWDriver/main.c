@@ -121,6 +121,7 @@ NTSTATUS DriverEntry(PDRIVER_OBJECT pDriver, PUNICODE_STRING pReg)
 
 	InitObRegister();
 
-	pDriver->DriverUnload = DriverUnload;
+	//这里使用驱动对象会蓝屏
+	//pDriver->DriverUnload = DriverUnload;
 	return STATUS_SUCCESS;
 }

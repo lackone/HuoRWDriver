@@ -1,7 +1,7 @@
 set "projectpath=%cd%"
 cd ../
-set "preProjectpath=%cd%/HuoRWDriver"
+set "preProjectpath=%cd%/DriverLoader"
 cd %projectpath%
-set "SignFullPath=%preProjectpath%/x64/Debug/HuoRWDriver.sys"
+set "SignFullPath=%preProjectpath%/x64/Debug/DriverLoader.sys"
 Build.exe %SignFullPath%
 

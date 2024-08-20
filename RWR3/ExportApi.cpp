@@ -120,7 +120,10 @@ EXTERN_C BOOLEAN WINAPI HRW_DriverLoad()
 
 	printf("%s \r\n", tmpPath);
 
-	return load.installDriver(tmpPath, serviceName);
+	load.installDriver(tmpPath, serviceName);
+
+	//已测试为准，驱动加没加成功
+	return HRW_test();
 }
 
 EXTERN_C VOID WINAPI HRW_UnDriverLoad()

@@ -29,6 +29,7 @@ int main()
         printf("Type %llx \r\n", info.Type);
 
         HRW_ProcessProtect(1988);
+        */
         
         HMODULE hm = LoadLibraryA("user32.dll");
         ULONG_PTR msg = (ULONG_PTR)GetProcAddress(hm, "MessageBoxA");
@@ -47,11 +48,12 @@ int main()
 
 		*(PULONG64)&code[12] = msg;
 
-		HRW_RemoteCall(944, code, sizeof(code));
+		HRW_RemoteCall(3984, code, sizeof(code));
+        
+        /*
+        HRW_ProcessFake(944, 416);
         */
 
-        HRW_ProcessFake(944, 416);
-        
         system("pause");
         HRW_UnDriverLoad();
     }

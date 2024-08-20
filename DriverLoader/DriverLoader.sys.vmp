@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Document Version="2">
+    <Protection InputFileName="DriverLoader.sys" Options="328448" VMCodeSectionName=".???" VMComplexity="20">
+        <Messages />
+        <Folders />
+        <Procedures>
+            <Procedure MapAddress="DriverEntry" Options="0" />
+            <Procedure MapAddress="DriverUnload" Options="0" />
+            <Procedure MapAddress="DeleteSelfFile" Options="0" />
+            <Procedure MapAddress="DeleteRegisterPath" Options="0" />
+        </Procedures>
+        <Objects />
+    </Protection>
+    <DLLBox>
+        <Folders />
+    </DLLBox>
+    <Script />
+    <LicenseManager />
+</Document>
